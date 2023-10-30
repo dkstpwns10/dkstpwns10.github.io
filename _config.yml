@@ -20,7 +20,11 @@ baseurl: /
 lang:                  en
 
 # The title of your blog. Used in the sidebar and the browser tab.
+<<<<<<< HEAD
 title:                 Buggy's DevStory
+=======
+title:                 Bugee's DevStory
+>>>>>>> 864cc034b84522eb75ae6c8e3c6d54de48aefcad
 
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
@@ -28,10 +32,17 @@ description:           >
   Story of Develop
 
 # A shorter description for the sidebar.
+<<<<<<< HEAD
 tagline:               Buggy's Blog
 
 # A list of keywords for your blog
 keywords:              [Dev, Study, Coding]
+=======
+tagline:               Bugee's Blog
+
+# A list of keywords for your blog
+keywords:              [Dev, Study, Developer]
+>>>>>>> 864cc034b84522eb75ae6c8e3c6d54de48aefcad
 
 # A (square) logo for your site.
 # If provided, it will be shown at the top of the sidebar.
@@ -42,7 +53,11 @@ logo:                  /assets/img/logo.png
 author:
   # Used by `jekyll-feed`:
   name:                Buggy
+<<<<<<< HEAD
   email:               dkstpwns20@gmail.com
+=======
+  email:               dkstpwns20@google.com
+>>>>>>> 864cc034b84522eb75ae6c8e3c6d54de48aefcad
   # # Used by `jekyll-seo-tag`:
   # twitter:             <username>
 
@@ -50,6 +65,7 @@ author:
 menu:
   - title:             Dev
     url:               /dev/
+<<<<<<< HEAD
   - title:             Project
     url:               /project/
   - title:             Study
@@ -58,6 +74,15 @@ menu:
     url:               /portfolio/
   - title:             About
     url:               /about/
+=======
+  - title:             Study
+    url:               /study/
+  - title:             Project
+    url:               /project/
+  - title:             Profile
+    url:               /profile/
+    
+>>>>>>> 864cc034b84522eb75ae6c8e3c6d54de48aefcad
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
