@@ -18,10 +18,12 @@ order: 5
 # DON'T USE THIS SETTING IN YOUR CATEGORIES!
 sitemap: false
 ---
-
-<span style="font-size : 250%; font-weight:bold">Buggy</span><br>
+<div style="diplay:flex; ">
+<image src="/assets/img/logo.png" style="width:140px;height:140px;float:left;" />
+<div style="font-size : 450%; font-weight:bold; ">Buggy</div>
+</div>
+<br><br><br>
 <span> 안녕하세요. 한국공학대학교 컴퓨터공학부 소프트웨어전공을 졸업한 부기입니다.<br>늦게나마 공부한 내용을 기록하고 공유하기위해 블로그를 시작했습니다.</span>
-
 <h2>Education</h2>
 <ul>
 <li>한국공학대학교(구 한국산업기술대학교) 컴퓨터공학부 소프트웨어전공 졸업</li>
