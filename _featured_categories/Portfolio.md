@@ -1,23 +1,35 @@
 ---
-# Featured tags need to have either the `list` or `grid` layout (PRO only).
-layout: list
-
-# The title of the tag's page.
+layout: about
 title: Portfolio
-
-# The name of the tag, used in a post's front matter (e.g. tags: [<slug>]).
 slug: Portfolio
-
-# (Optional) Write a short (~150 characters) description of this featured tag.
-description: >
-  포트폴리오
-
 menu: true
 order: 4
-# (Optional) You can disable grouping posts by date.
-# no_groups: true
-
-# Exclude this example category from the sitemap.
-# DON'T USE THIS SETTING IN YOUR CATEGORIES!
 sitemap: false
 ---
+
+<div style="diplay:flex; ">
+<image src="/assets/img/logo.png" style="width:140px;height:140px;float:left;" />
+</div>
+<h2>Education</h2>
+<ul>
+<li>한국공학대학교(구 한국산업기술대학교) 컴퓨터공학부 소프트웨어전공 졸업</li>
+<li>신봉고등학교 졸업</li>
+</ul>
+
+<h2>Stack</h2>
+<ul>
+<li>Java</li>
+<li>JavaScript(Vanila, JQuery)</li>
+<li>C</li>
+<li>Kotlin</li>
+<li>Python</li>
+</ul>
+
+<h2>Skills</h2>
+<ul>
+<li>SpringFramwork, SpringBoot</li>
+<li>RDBMS(Oracle, MySQL)</li>
+<li>AWS CloudPlatform</li>
+</ul>
+
+

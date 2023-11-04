@@ -11,7 +11,7 @@ menu: true
 order: 3
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  개발 공부 및 각종 공부에 대한 자료 정리
+  개발, 알고리즘 공부 및 각종 공부에 대한 자료 정리
 
 # (Optional) You can disable grouping posts by date.
 # no_groups: true
