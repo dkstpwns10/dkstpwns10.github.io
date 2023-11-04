@@ -32,7 +32,8 @@ sitemap: false
 
 <h2>Stack</h2>
 <ul>
-<li>JAVA</li>
+<li>Java</li>
+<li>JavaScript(Vanila, JQuery)</li>
 <li>C</li>
 <li>Kotlin</li>
 <li>Python</li>
