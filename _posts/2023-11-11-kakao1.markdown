@@ -1,0 +1,282 @@
+---
+layout: post
+title:  "[Programmers]2023 카카오 블라인드 채용 - Lv1 개인정보 수집 유효기간 간단풀이"
+date:   2023-11-11 05:30:00 +0900
+categories: Study
+---
+
+프로그래머스에서 카카오 문제를 풀어보았다.
+
+
+## 문제 설명
+고객의 약관 동의를 얻어서 수집된 1~n번으로 분류되는 개인정보 n개가 있습니다. 약관 종류는 여러 가지 있으며 각 약관마다 개인정보 보관 유효기간이 정해져 있습니다. 당신은 각 개인정보가 어떤 약관으로 수집됐는지 알고 있습니다. 수집된 개인정보는 유효기간 전까지만 보관 가능하며, 유효기간이 지났다면 반드시 파기해야 합니다.
+
+예를 들어, A라는 약관의 유효기간이 12 달이고, 2021년 1월 5일에 수집된 개인정보가 A약관으로 수집되었다면 해당 개인정보는 2022년 1월 4일까지 보관 가능하며 2022년 1월 5일부터 파기해야 할 개인정보입니다.
+당신은 오늘 날짜로 파기해야 할 개인정보 번호들을 구하려 합니다.
+
+모든 달은 28일까지 있다고 가정합니다.
+
+
+다음은 오늘 날짜가 2022.05.19일 때의 예시입니다.
+
+| 약관 종류  | 유효기간 |
+|:----------|:---------|
+| A         | 6 달     |
+| B         | 12 달    | 
+| C         | 3 달     |
+
+
+
+| 번호   | 개인정보 수집 일자 | 약관 종류 |
+|:-------|:-----------------|:----------|
+| 1      | 2021.05.02       | A         |
+| 2      | 2021.07.01       | B         |
+| 3      | 2022.02.19       | C         |
+| 4      | 2022.02.20       | C         |
+
+첫 번째 개인정보는 A약관에 의해 2021년 11월 1일까지 보관 가능하며, 유효기간이 지났으므로 파기해야 할 개인정보입니다.
+두 번째 개인정보는 B약관에 의해 2022년 6월 28일까지 보관 가능하며, 유효기간이 지나지 않았으므로 아직 보관 가능합니다.
+세 번째 개인정보는 C약관에 의해 2022년 5월 18일까지 보관 가능하며, 유효기간이 지났으므로 파기해야 할 개인정보입니다.
+네 번째 개인정보는 C약관에 의해 2022년 5월 19일까지 보관 가능하며, 유효기간이 지나지 않았으므로 아직 보관 가능합니다.
+따라서 파기해야 할 개인정보 번호는 [1, 3]입니다.
+
+
+오늘 날짜를 의미하는 문자열 today, 약관의 유효기간을 담은 1차원 문자열 배열 terms와 수집된 개인정보의 정보를 담은 1차원 문자열 배열 privacies가 매개변수로 주어집니다. 이때 파기해야 할 개인정보의 번호를 오름차순으로 1차원 정수 배열에 담아 return 하도록 solution 함수를 완성해 주세요.
+
+
+
+해당 문제를 푸는 방법은 무수히 많지만 최대한 빠른 실행 속도로 구현하기 위해 라이브러리를 사용을 자제 하였다.
+실제로 다른 사람의 풀이를 보면 Stream을 쓰는 사람도 있고 다양한 풀이 방법이 있지만 문자열 처리는 은근히 시간을 소모하기때문에 할 수 있는 최대한 지양하였다.
+
+## 문자열 처리
+
+매개변수가 String타입으로 주어지기에 today, terms, privacies를 원하는 형태로 바꿔야될 필요가 있다.
+문제에서는 연도 계산이 목적임으로 문자열들을 split()으로 나눠 형태를 바꾼 뒤 계산하기 편하게 int형으로 저장한다. 
+
+### String today 문자열 분할
+~~~java
+class Solution {
+    public int[] solution(String today, String[] terms, String[] privacies) {
+        
+        String[] date = today.split("\\.");
+        
+        int yy = Integer.parseInt(date[0]);
+        int mm = Integer.parseInt(date[1]);
+        int dd = Integer.parseInt(date[2])+1;// 보통 날짜를 세는 방식은 11.11일부터 한달이라고 했을 때 12.10일이다. 시작할때 하루를 더해주면 간단히 해결된다. 
+    }
+}
+~~~
+
+다음은 String배열 타입의 terms를 변환할 차례이다.
+그러나 terms같은 경우 Key:Value 타입으로 저장하여 privacies에서 받을 약관 등급 검색에 용이하도록 Map으로 선언하여 저장하였다.
+배열은 최대한 향상된 for문으로 작성하여 코드를 간결하게 작성하는 습관을 들이는 것이 좋다.
+또한 Value를 저장할때 int형으로 저장하면 나중에 꺼내어 쓸때 일일히 int형으로 파싱하지 않아도 된다
+
+### String[] terms Map형태로 저장
+~~~java
+class Solution {
+    public int[] solution(String today, String[] terms, String[] privacies) {
+        Map<String, Integer> map = new HashMap<>();
+        for(String str : terms){
+            String[] arr = str.split(" "); //" "공백으로 문자열 분리
+            map.put(arr[0],Integer.parseInt(arr[1])); // HashMap에 Key:Value 형태로 저장
+        }
+    }
+}
+~~~
+
+이제 필요한 조건들을 거의 끝내 놓았다.
+위의 코드를 그대로 사용하여 privacies를 분류하면된다.
+privacies의 테스트 케이스는 아래의 형식으로 되어있다.
+
+**["2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C"]**
+
+### String[] privacies 분할
+~~~java
+class Solution {
+    public int[] solution(String today, String[] terms, String[] privacies) {
+        for(String data : privacies){
+            String[] s1 = data.split("\\.");//"."은 정규표현식에서 와일드카드로 사용되기때문에 문자 그대로 사용하기위해 "\\."과 같이 이스케이프처리를 해주어야한다.
+            String[] s2 = s1[2].split(" ");// .으로 문자열을 나눌경우 [2021],[05],[02 A]로 나타 나기에 [02 A]의 배열을 다시 한번 공백으로 분리한다.
+            
+            int year = Integer.parseInt(s1[0]);
+            int month = Integer.parseInt(s1[1]);
+            int day = Integer.parseInt(s2[0]);
+        }
+    }
+}
+~~~
+
+계산을 간결하게 하기위해서는 목적을 잊으면 안된다.
+우리는 약관의 **유효기간**을 넘은 번호를 찾아야한다.
+유효기간을 계산하는 방법은 여러가지가 있겠지만, 과거의 약관년도가 현재년도보다 많을 수는 없기에 
+**{(현재년도*12*28)+(현재 월*28)+(현재 일)} - {(약관년도*12*28)+(약관 월*28)+(약관 일)}**이 약관 유효 기간 * 28 보다 작으면된다.
+
+현재까지의 전체 일수 - 약관날짜 당시의 전체 일수 이다
+
+### 계산
+~~~java
+class Solution {
+    public int[] solution(String today, String[] terms, String[] privacies) {
+        int total = yy*12*28 + mm*28 + dd;
+        int select = year*12*28 + month*28 + day;
+        int type = map.get(s2[1]);
+
+        if(total-select>type*28){
+            //answer에 값 추가;
+        }
+    }
+}
+~~~
+
+종합하면 다음과 같은 전체 코드가 나온다.
+
+### 전체코드
+~~~java
+import java.util.*;
+
+class Solution {
+    public int[] solution(String today, String[] terms, String[] privacies) {
+        List<Integer> answer = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        String[] date = today.split("\\.");
+
+        int yy = Integer.parseInt(date[0]);
+        int mm = Integer.parseInt(date[1]);
+        int dd = Integer.parseInt(date[2])+1;
+        int total = yy*12*28 + mm*28 + dd;
+        
+        for(String str : terms){
+            String[] arr = str.split(" ");
+            map.put(arr[0],Integer.parseInt(arr[1]));
+        }
+        
+        int i = 0;
+        for(String data : privacies){
+            String[] s1 = data.split("\\.");
+            String[] s2 = s1[2].split(" ");
+            
+            int year = Integer.parseInt(s1[0]);
+            int month = Integer.parseInt(s1[1]);
+            int day = Integer.parseInt(s2[0]);
+            int select = year*12*28 + month*28 + day;
+            int type = map.get(s2[1]);
+            if(total-select>type*28){
+                answer.add(i+1);
+            }
+            i++;
+        }
+        return answer.stream().mapToInt(integer -> integer).toArray();
+    }
+}
+~~~
+
+그런데 int[]로 반환을 해야되서 stream().toArray()와 같은 굉장히 귀찮은 과정을 통해 반환을 해야한다.
+그래서 그냥 반환 타입과 answer의 타입을 List로 바꿔주었다.
+반환 타입만 바꾸더라고 실행속도에서 큰 차이가 난다.
+
+### 전체코드(List반환 버전)
+~~~java
+import java.util.*;
+
+
+class Solution {
+    public List solution(String today, String[] terms, String[] privacies) {
+        List<Integer> answer = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        String[] date = today.split("\\.");
+
+        int yy = Integer.parseInt(date[0]);
+        int mm = Integer.parseInt(date[1]);
+        int dd = Integer.parseInt(date[2])+1;
+        int total = yy*12*28 + mm*28 + dd;
+        
+        for(String str : terms){
+            String[] arr = str.split(" ");
+            map.put(arr[0],Integer.parseInt(arr[1]));
+        }
+        
+        int i = 0;
+        for(String data : privacies){
+            String[] s1 = data.split("\\.");
+            String[] s2 = s1[2].split(" ");
+            
+            int year = Integer.parseInt(s1[0]);
+            int month = Integer.parseInt(s1[1]);
+            int day = Integer.parseInt(s2[0]);
+
+            int select = year*12*28 + month*28 + day;
+            int type = map.get(s2[1]);
+
+            if(total-select>type*28){
+                answer.add(i+1);
+            }
+            i++;
+        }
+        return answer;
+    }
+}
+~~~
+
+int[] 반환 버전과 List반환 버전의 테이스 케이스 실행 시간의 차이를 알아보자.
+먼저 int[]버전이다.
+
+### int[] 반환 테스트 케이스 소요시간
+
+| 번호          | 테스트 케이스 결과 | 소요 시간 및 자원       |
+|:--------------|:-----------------|:-----------------------|
+| 테스트 1      | 통과              | 2.35ms, 79.3MB         |
+| 테스트 2      | 통과              | 2.66ms, 73.4MB         |
+| 테스트 3      | 통과              | 2.33ms, 73.4MB         |
+| 테스트 4      | 통과              | 2.20ms, 74.8MB         |
+| 테스트 5      | 통과              | 2.80ms, 75.6MB         |
+| 테스트 6      | 통과              | 2.19ms, 75.7MB         |
+| 테스트 7      | 통과              | 1.88ms, 74MB           |
+| 테스트 8      | 통과              | 1.96ms, 77MB           |
+| 테스트 9      | 통과              | 2.27ms, 69.9MB         |
+| 테스트 10     | 통과              | 2.35ms, 75.6MB         |
+| 테스트 11     | 통과              | 3.03ms, 82.6MB         |
+| 테스트 12     | 통과              | 3.93ms, 75.9MB         |
+| 테스트 13     | 통과              | 2.81ms, 73MB           |
+| 테스트 14     | 통과              | 2.73ms, 78.8MB         |
+| 테스트 15     | 통과              | 2.74ms, 78.4MB         |
+| 테스트 16     | 통과              | 2.41ms, 73MB           |
+| 테스트 17     | 통과              | 3.16ms, 73.2MB         |
+| 테스트 18     | 통과              | 4.27ms, 84.8MB         |
+| 테스트 19     | 통과              | 2.90ms, 76.7MB         |
+| 테스트 20     | 통과              | 2.82ms, 73.7MB         |
+
+
+### List 반환 테스트 케이스 소요시간
+
+| 번호          | 테스트 케이스 결과 | 소요 시간 및 자원       |
+|:--------------|:-----------------|:-----------------------|
+| 테스트 1      | 통과              | 0.09ms, 72.5MB         |
+| 테스트 2      | 통과              | 0.17ms, 80.1MB         |
+| 테스트 3      | 통과              | 0.17ms, 80.1MB         |
+| 테스트 4      | 통과              | 0.14ms, 77.9MB         |
+| 테스트 5      | 통과              | 0.16ms, 77.4MB         |
+| 테스트 6      | 통과              | 0.33ms, 76.6MB         |
+| 테스트 7      | 통과              | 0.35ms, 74.7MB         |
+| 테스트 8      | 통과              | 0.25ms, 73.8MB         |
+| 테스트 9      | 통과              | 0.57ms, 74.4MB         |
+| 테스트 10     | 통과              | 0.63ms, 75.7MB         |
+| 테스트 11     | 통과              | 0.89ms, 71.3MB         |
+| 테스트 12     | 통과              | 1.43ms, 77.9MB         |
+| 테스트 13     | 통과              | 0.78ms, 75.5MB         |
+| 테스트 14     | 통과              | 0.65ms, 71.4MB         |
+| 테스트 15     | 통과              | 0.92ms, 78.3MB         |
+| 테스트 16     | 통과              | 1.35ms, 78.5MB         |
+| 테스트 17     | 통과              | 0.94ms, 76.7MB         |
+| 테스트 18     | 통과              | 0.93ms, 74.9MB         |
+| 테스트 19     | 통과              | 0.97ms, 76.8MB         |
+| 테스트 20     | 통과              | 1.19ms, 71.4MB         |
+
+보다시피 꽤나 큰 차이가 난다.
+
+문제를 풀고 다른 사람의 풀이를 보면 굳이? 싶은 코드들도 있다.
+라이브러리와 메소드를 써서 성능이 오히려 좋아지거나 코드의 가독성이 눈에 띄게 좋아진다면 쓰는것이 좋지만
+간단한 문제 같은 경우는 대부분 사용하지 않는 편이 훨씬 좋은 성능을 발휘한다.
+
+**다른 사람의 코드를 보고 메소드와 라이브러리의 사용법을 배우는건 굉장히 좋다.**
+그러나 다른 사람의 풀이를 보면서 화려하고 긴 코드만 보고 나도 저렇게 짜야지! 라는 생각보단 필요할때 적절한 곳에 사용하는 것이 좋은 프로그래머가 되는 길이라고 생각한다.
